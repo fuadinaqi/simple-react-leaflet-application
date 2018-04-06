@@ -1,0 +1,127 @@
+.App {
+  text-align: center;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+@keyframes translateDown {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: translateY(2.25rem);
+  }
+}
+
+@keyframes translateUp {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: translateY(-2.25rem);
+  }
+}
+
+@keyframes scaleYDown {
+  0% {
+    opacity: 0;
+    transform-origin: bottom;
+    transform: translateX(-50%) scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+@keyframes scaleYUp {
+  0% {
+    opacity: 0;
+    transform-origin: top;
+    transform: translateX(-50%) scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+@keyframes letterSpacing {
+  0% {
+    opacity: 0;
+    letter-spacing: 0;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 1rem;
+  }
+}
+
+.title {
+  font-size: 80px;
+  font-weight: 700;
+  font-family: 'Josefin Sans', serif;
+  color: #fff;
+  opacity: 0;
+  text-transform: uppercase;
+  text-shadow: 0 15px 30px rgba(#000, 0.15);
+  animation: letterSpacing 1s 0.6s;
+  animation-fill-mode: forwards;
+  
+  span {
+    position: relative;
+    display: inline-block;
+    
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 10rem;
+      opacity: 0;
+      background: rgba(#fff, 0.5);
+      transition: 0.6s 0.6s;
+    }
+    
+    &:first-child,
+    &:last-child {
+      animation: translateDown 0.6s 1.4s;
+      animation-fill-mode: forwards;
+      
+      &::before {
+        bottom: calc(100% + 1rem);
+        left: calc(50% - 1rem);
+        animation: scaleYUp 0.6s 1.4s;
+        animation-fill-mode: forwards;
+      }
+    }
+    
+    @include odd-between(3, 13) {
+      animation: translateUp 0.6s 1.4s;
+      animation-fill-mode: forwards;
+      
+      &::before {
+        top: calc(100%);
+        left: calc(50% - 1rem);
+        animation: scaleYDown 0.6s 1.4s;
+        animation-fill-mode: forwards;
+      }
+    }
+  }
+}
+
+html {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 300vh;
+  margin: auto;
+  text-align: center;
+  background: #43C6AC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
