@@ -12,6 +12,10 @@ class AlertWaze extends Component {
     lat: -6.1751,
     lng: 106.8650,
     zoom: 12,
+    showJam: true,
+    showAccident: true,
+    showRoad: true,
+    showHazard: true
   }
   
   componentWillMount () {
@@ -37,6 +41,32 @@ class AlertWaze extends Component {
       return (
         <div>
           <h3>Waze Alerts</h3>
+          <fieldset className="form-group">
+            <div className="form-check" >
+              <label className="form-check-label" style={{color: '#fff'}}>
+                <input className="form-check-input" type="checkbox" value="" checked={this.state.showJam} onClick={() => this.setState({showJam: !this.state.showJam})}/>
+                Show Traffic
+              </label>
+            </div>
+            <div className="form-check">
+              <label className="form-check-label" style={{color: '#fff'}}>
+                <input className="form-check-input" type="checkbox" value="" checked={this.state.showHazard} onClick={() => this.setState({showHazard: !this.state.showHazard})}/>
+                Show Weather Hazard
+              </label>
+            </div>
+            <div className="form-check">
+              <label className="form-check-label" style={{color: '#fff'}}>
+                <input className="form-check-input" type="checkbox" value="" checked={this.state.showRoad} onClick={() => this.setState({showRoad: !this.state.showRoad})}/>
+                Show Road Closed
+              </label>
+            </div>
+            <div className="form-check">
+              <label className="form-check-label" style={{color: '#fff'}}>
+                <input className="form-check-input" type="checkbox" value="" checked={this.state.showAccident} onClick={() => this.setState({showAccident: !this.state.showAccident})}/>
+                Show Accident
+              </label>
+            </div>
+          </fieldset>
           <Map center={position} zoom={this.state.zoom}>
             <TileLayer
               attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
@@ -59,7 +89,11 @@ class AlertWaze extends Component {
                       type: 'Traffic Jam',
                       colorType: '#9f2828',
                     }
-                    return <MarkerType data={data}/>
+                    if (this.state.showJam) {
+                      return <MarkerType data={data}/>
+                    } else {
+                      return ''
+                    }
                   case 'WEATHERHAZARD':
                     data = { 
                       ...data,
@@ -67,7 +101,11 @@ class AlertWaze extends Component {
                       type: 'Weather Hazard',
                       colorType: '#0594d9',
                     }
-                    return <MarkerType data={data}/>
+                    if (this.state.showHazard) {
+                      return <MarkerType data={data}/>
+                    } else {
+                      return ''
+                    }
                   case 'ROAD_CLOSED':
                     data = { 
                       ...data,
@@ -75,7 +113,11 @@ class AlertWaze extends Component {
                       type: 'Road Closed',
                       colorType: '#000',
                     }
-                    return <MarkerType data={data}/>
+                    if (this.state.showRoad) {
+                      return <MarkerType data={data}/>
+                    } else {
+                      return ''
+                    }
                   case 'ACCIDENT':
                     data = { 
                       ...data,
@@ -83,7 +125,11 @@ class AlertWaze extends Component {
                       type: 'Accident!',
                       colorType: '#a3a328',
                     }
-                    return <MarkerType data={data}/>
+                    if (this.state.showAccident) {
+                      return <MarkerType data={data}/>
+                    } else {
+                      return ''
+                    }
                   default:
                     return ''
                 }

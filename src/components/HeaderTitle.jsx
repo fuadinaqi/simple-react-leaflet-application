@@ -5,7 +5,7 @@ export default class HeaderTitle extends Component {
   render() {
     return (
       <div style={{marginTop: 70}}>
-        <h1 className="title">Welcome to MAP</h1>
+        <h1 className="title">Welcome to FMAP</h1>
       </div>
     )
   }

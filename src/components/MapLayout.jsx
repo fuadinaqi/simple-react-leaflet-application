@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import '../App.css'
-// import { redIconMarker } from '../Icon'
 
 import { fetchReports } from '../store/actions'
+
+import ReportMarker from './ReportMarker'
 
 class MapLayout extends Component {
   state = {
     lat: -6.1751,
     lng: 106.8650,
     zoom: 12,
+    isShow: true
   }
 
   componentWillMount () {
@@ -36,26 +38,14 @@ class MapLayout extends Component {
     } else {
       return (
         <div>
-          <h3>Qlue's Reports</h3>
+          <h3>Qlue Reports</h3>
+          <button style={{margin: 10}} type="button" className="btn btn-secondary" onClick={() => this.setState({isShow: !this.state.isShow})} >Show / Hide Reports</button>
           <Map center={position} zoom={this.state.zoom}>
             <TileLayer
               attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {
-              report.data.map((mark) => (
-                <Marker key={mark.id} position={[mark.lat, mark.lng]}>
-                  <Popup>
-                    <div>
-                      <span>
-                        { mark.description }
-                      </span>
-                    </div>
-                  </Popup>
-                </Marker>
-              ))
-              
-            }
+            <ReportMarker report={report} isShow={this.state.isShow} />
           </Map>
         </div>
       )
