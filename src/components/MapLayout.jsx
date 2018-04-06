@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import '../App.css'
+// import { redIconMarker } from '../Icon'
 
 import { fetchReports } from '../store/actions'
 
@@ -21,12 +23,9 @@ class MapLayout extends Component {
     const { report } = this.props
     if (report.isLoading) {
       return (
-        <Map center={position} zoom={this.state.zoom}>
-          <TileLayer
-            attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </Map>
+        <div>
+          <img src='https://zippy.gfycat.com/SimilarPlumpBarasingha.gif' alt='loading bar' />
+        </div>
       )
     } else if (report.isError) {
       return (
@@ -37,23 +36,27 @@ class MapLayout extends Component {
     } else {
       return (
         <div>
-        <Map center={position} zoom={this.state.zoom}>
-          <TileLayer
-            attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {
-            report.data.map((mark, i) => (
-              <Marker key={i} position={[mark.lat, mark.lng]}>
-                <Popup>
-                  <span>
-                    { mark.description }
-                  </span>
-                </Popup>
-              </Marker>
-            ))
-          }
-        </Map>
+          <h3>Qlue's Reports</h3>
+          <Map center={position} zoom={this.state.zoom}>
+            <TileLayer
+              attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {
+              report.data.map((mark) => (
+                <Marker key={mark.id} position={[mark.lat, mark.lng]}>
+                  <Popup>
+                    <div>
+                      <span>
+                        { mark.description }
+                      </span>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))
+              
+            }
+          </Map>
         </div>
       )
     }

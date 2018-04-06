@@ -65,6 +65,18 @@
   animation-fill-mode: forwards;
 }
 
+h3 {
+  font-size: 30px;
+  font-weight: 300;
+  font-family: 'Josefin Sans', serif;
+  color: rgb(156, 156, 156);
+  opacity: 0;
+  text-transform: uppercase;
+  text-shadow: 0 15px 30px rgba(#000, 0.15);
+  animation: letterSpacing 1s 0.9s;
+  animation-fill-mode: forwards;
+}
+
 html {
   display: flex;
   height: 100%;
